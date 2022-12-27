@@ -2,7 +2,8 @@ import React from 'react';
 
 const AddTask = () => {
     return (
-        <div>
+        <div className='min-h-screen'>
+
             AddTask
         </div>
     );

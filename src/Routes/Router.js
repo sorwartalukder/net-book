@@ -1,7 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import AddTask from "../Pages/AddTask/AddTask";
+import Login from "../Pages/Shared/Login/Login";
 import NotFound from "../Pages/Shared/NotFound/NotFound";
+import SignUp from "../Pages/Shared/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -11,7 +14,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <AddTask />
+                element: <PrivateRoute><AddTask /></PrivateRoute>
+            },
+            {
+                path: '/signup',
+                element: <SignUp />
+            },
+            {
+                path: '/login',
+                element: <Login />
             },
         ]
     },
