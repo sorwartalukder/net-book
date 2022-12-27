@@ -8,47 +8,56 @@ const SignUp = () => {
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [signUpError, setSignUpError] = useState('')
+    const [imgError, setImgError] = useState('')
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     const navigate = useNavigate()
-
     const handleUserCreate = data => {
         setSignUpError('')
-        //create user
-        createUser(data.email, data.password)
-            .then((result) => {
-                toast.success('Account Created Successfully.')
-                const user = result.user;
-                //store image
-                const image = data.image[0];
-                const formData = new FormData();
-                formData.append('image', image);
-                const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
-                fetch(url, {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then((res) => res.json())
-                    .then(imgData => {
-                        const userInfo = {
-                            displayName: data.name,
-                            photoURL: imgData.data.url
-                        }
-                        // update user
-                        updateUserProfile(userInfo)
-                            .then(() => {
-                                // user save database function call
-                                saveUserDatabase(user.displayName, user.email, imgData.data.url)
-                            })
-                            .catch(e => console.error(e))
-
+        setImgError('')
+        if (data.image[0]) {
+            //create user
+            createUser(data.email, data.password)
+                .then((result) => {
+                    toast.success('Account Created Successfully.')
+                    const user = result.user;
+                    //store image
+                    const image = data.image[0];
+                    const formData = new FormData();
+                    formData.append('image', image);
+                    const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
+                    fetch(url, {
+                        method: 'POST',
+                        body: formData
                     })
+                        .then((res) => res.json())
+                        .then(imgData => {
+                            const userInfo = {
+                                displayName: data.name,
+                                photoURL: imgData.data.url
+                            }
+                            // update user
+                            updateUserProfile(userInfo)
+                                .then(() => {
+                                    // user save database function call
+                                    saveUserDatabase(user.displayName, user.email, imgData.data.url)
+                                })
+                                .catch(e => console.error(e))
 
-            })
-            .catch((error) => {
-                const errorMessage = error.message;
-                setSignUpError(errorMessage)
-                console.error(error)
-            });
+                        })
+
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    setSignUpError(errorMessage)
+                    console.error(error)
+                });
+        }
+        else {
+            setImgError('Photo is required')
+        }
+
+
+
     }
     //user save function
     const saveUserDatabase = (name, email, image) => {
@@ -114,23 +123,19 @@ const SignUp = () => {
                     </div>
 
                     {/* image  */}
-                    <div className="form-control w-full max-w-xs">
-                        <label>Photo</label>
-                        <input
-                            required
-                            type="file"
-                            className="w-full text-sm text-slate-500
-                            file:mr-4 file:py-2 file:px-4
-                            file:rounded-full file:border-0
-                            file:text-sm file:font-semibold
-                            file:bg-violet-50 file:text-violet-700
-                            hover:file:bg-violet-100"
-                            {...register("image", {
-                                required: 'image is required'
-                            })}
-                        />
-                        {errors.image && <p className='text-red-600'>{errors.image?.message}</p>}
+                    <div className="mb-3">
+                        <div className="file-input">
+                            <input
+                                type="file"
+                                {...register("image", {
+                                    required: 'image is required'
+                                })}
+                                id="file" className="file"
+                            />
 
+                            <label htmlFor="file" className='hover:shadow-sm hover:shadow-slate-600'>UPLOAD PHOTO</label>
+                        </div>
+                        {imgError && <p className='text-red-600'>{imgError}</p>}
                     </div>
                     <button type="submit"
                         className='py-3 rounded-md bg-gradient-to-r from-cyan-500 to-blue-500 w-full mt-4 hover:shadow-md hover:shadow-slate-900'

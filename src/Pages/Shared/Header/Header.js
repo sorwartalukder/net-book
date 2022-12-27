@@ -22,7 +22,7 @@ const Header = () => {
         </li>
 
         <li>
-            <NavLink style={({ isActive }) => (isActive ? activeClass : undefined)} to="/blogs">My Task</NavLink>
+            <NavLink style={({ isActive }) => (isActive ? activeClass : undefined)} to="/my-task">My Task</NavLink>
         </li>
         <li>
             <NavLink style={({ isActive }) => (isActive ? activeClass : undefined)}
