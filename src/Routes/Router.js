@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import AddTask from "../Pages/AddTask/AddTask";
+import CompletedDetails from "../Pages/CompletedTask/CompletedDetails";
 import CompletedTask from "../Pages/CompletedTask/CompletedTask";
 import MyTask from "../Pages/MyTask/MyTask";
 import UpdateTask from "../Pages/MyTask/UpdateTask";
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><CompletedTask /></PrivateRoute>
             },
             {
+                path: '/completed-details/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/note/${params.id}`),
+                element: <PrivateRoute><CompletedDetails /></PrivateRoute>
+            },
+            {
                 path: '/signup',
                 element: <SignUp />
             },
@@ -39,6 +45,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/update-task/:id',
+        loader: ({ params }) => fetch(`http://localhost:5000/note/${params.id}`),
         element: <PrivateRoute><UpdateTask /></PrivateRoute>
     },
 

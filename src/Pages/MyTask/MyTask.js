@@ -12,7 +12,6 @@ const MyTask = () => {
     const [noteData, setNoteData] = useState(null)
     const navigate = useNavigate()
 
-
     const { data: notes = [], isLoading, refetch } = useQuery({
         queryKey: ['notes', user?.email],
         queryFn: async () => {
@@ -21,14 +20,11 @@ const MyTask = () => {
             return data
         }
     })
-
     //booking modal close handle
     const closeModal = () => {
         setNoteData(null);
     }
-    const handleUpdate = (e) => {
-
-    }
+    // handle deleted note
     const handleDelete = (id) => {
         fetch(`http://localhost:5000/notes/${id}`, {
             method: 'DELETE'
@@ -75,7 +71,6 @@ const MyTask = () => {
             <NoteModal
                 closeModal={closeModal}
                 noteData={noteData}
-                handleUpdate={handleUpdate}
                 handleDelete={handleDelete}
                 handleCompleted={handleCompleted}
             />

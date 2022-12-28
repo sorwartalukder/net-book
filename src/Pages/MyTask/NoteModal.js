@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function NoteModal({ closeModal, noteData, handleUpdate, handleDelete, handleCompleted }) {
+function NoteModal({ closeModal, noteData, handleDelete, handleCompleted }) {
     return (
         <>
             {noteData ? (
@@ -12,7 +12,8 @@ function NoteModal({ closeModal, noteData, handleUpdate, handleDelete, handleCom
                         <div className="relative w-auto my-6 mx-auto max-w-3xl">
                             {/*content*/}
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ">
-                                <div className="flex justify-end p-2">
+                                {/*header*/}
+                                <div className="flex justify-end p-2 mt-20">
                                     <Link to={`/update-task/${noteData._id}`}
                                         className="py-3 px-4 rounded-md uppercase font-semibold text-slate-100 bg-gradient-to-r from-cyan-500 to-blue-500 hover:shadow-md hover:shadow-slate-900"
                                     >
@@ -27,15 +28,15 @@ function NoteModal({ closeModal, noteData, handleUpdate, handleDelete, handleCom
                                     </button>
 
                                 </div>
-                                {/*header*/}
+                                {/*note*/}
                                 <div className="p-5 rounded-t text-lg pt-24">
                                     <p>{noteData.note}</p>
                                 </div>
-                                {/*body*/}
+                                {/*note image*/}
                                 {
                                     noteData?.image && <div className="relative p-6">
                                         <div className="my-4 text-slate-500 text-lg leading-relaxed">
-                                            <img className='w-full max-h-[600px] p-3' src={noteData?.image} alt="" />
+                                            <img className='w-full max-h-[500px] max-w-lg p-3 mx-auto' src={noteData?.image} alt="" />
                                         </div>
                                     </div>
                                 }
