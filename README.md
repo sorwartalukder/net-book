@@ -1,8 +1,8 @@
 <!-- important link -->
 <h1>Important Link</h1>
-<a href="https://used-phones-e6a78.firebaseapp.com/">live link</a> 
+<a href="https://net-book-5a72e.web.app/">live link</a> 
 <br />
-<a href="https://github.com/sorwartalukder/used-phones-server">Server side code link</a> 
+<a href="https://github.com/sorwartalukder/net-book-server">Server side code link</a> 
 <br />
 <a href="https://sorwar-portfolio.web.app/">Developer Portfolio</a> 
 <br />
@@ -13,7 +13,6 @@
 <ol>
 <li>React.js</li>
 <li>Tailwind</li>
-<li>DaisyUI</li>
 <li>React Query</li>
 <li>React Router</li>
 <li>React Hook Form</li>
@@ -24,7 +23,6 @@
 <li>Express.js</li>
 <li>MongoDB</li>
 <li>Firebase</li>
-<li>JWT</li>
 </ol>
 
 <!-- developer profile -->

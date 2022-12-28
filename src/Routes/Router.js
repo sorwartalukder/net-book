@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import AddTask from "../Pages/AddTask/AddTask";
+import CompletedTask from "../Pages/CompletedTask/CompletedTask";
 import MyTask from "../Pages/MyTask/MyTask";
+import UpdateTask from "../Pages/MyTask/UpdateTask";
 import Login from "../Pages/Shared/Login/Login";
 import NotFound from "../Pages/Shared/NotFound/NotFound";
 import SignUp from "../Pages/Shared/SignUp/SignUp";
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><MyTask /></PrivateRoute>
             },
             {
+                path: '/completed-task',
+                element: <PrivateRoute><CompletedTask /></PrivateRoute>
+            },
+            {
                 path: '/signup',
                 element: <SignUp />
             },
@@ -31,7 +37,10 @@ const router = createBrowserRouter([
             },
         ]
     },
-
+    {
+        path: '/update-task/:id',
+        element: <PrivateRoute><UpdateTask /></PrivateRoute>
+    },
 
 ])
 

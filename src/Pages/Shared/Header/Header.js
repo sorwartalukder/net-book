@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 import './Header.css'
 
@@ -26,7 +26,8 @@ const Header = () => {
         </li>
         <li>
             <NavLink style={({ isActive }) => (isActive ? activeClass : undefined)}
-                to="/support">Complete Task</NavLink>
+                to="/completed-task
+                ">Complete Task</NavLink>
         </li>
     </React.Fragment>
 
@@ -35,9 +36,11 @@ const Header = () => {
 
             <div className='max-w-[1480px] mx-auto flex justify-between items-center'>
                 {/* LOGO */}
-                <div className='font-semibold text-2xl text-blue-500 border-2 border-green-500 rounded px-2 py-1 hover:bg-slate-900 hover:border-blue-600'>
-                    <h2>NET BOOK</h2>
-                </div>
+                <Link to='/'>
+                    <div className='font-semibold text-2xl text-blue-500 border-2 border-green-500 rounded px-2 py-1 hover:bg-slate-900 hover:border-blue-600'>
+                        <h2>NET BOOK</h2>
+                    </div>
+                </Link>
                 {/* nav items */}
                 <div>
 

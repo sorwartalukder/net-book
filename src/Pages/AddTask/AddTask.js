@@ -8,12 +8,17 @@ import './AddTask.css'
 const AddTask = () => {
     const { user } = useContext(AuthContext)
     const [addImage, setAddImage] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm();
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     const navigate = useNavigate()
     // handle note
     const handleNote = data => {
-
+        setErrorMessage('')
+        if (data.note === ' ') {
+            setErrorMessage('Type Latter must')
+            return;
+        }
         if (addImage) {
             if (data.image[0]) {
                 // img hosting
@@ -27,18 +32,18 @@ const AddTask = () => {
                 })
                     .then((res) => res.json())
                     .then(imgData => {
-                        const note = { note: data.note, image: imgData.data.url }
+                        const note = { note: data.note, image: imgData.data.url, email: user.email }
                         saveNote(note)
                     })
                     .catch(e => console.error(e))
             }
             else {
-                const note = { note: data.note }
+                const note = { note: data.note, email: user.email }
                 saveNote(note)
             }
         }
         else {
-            const note = { note: data.note }
+            const note = { note: data.note, email: user.email }
             saveNote(note)
         }
 
@@ -87,6 +92,7 @@ const AddTask = () => {
                     </textarea>
 
                     {errors.note && <p className='text-red-600'>{errors.note?.message}</p>}
+                    {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
                 </div>
                 {/* image  */}
                 {
