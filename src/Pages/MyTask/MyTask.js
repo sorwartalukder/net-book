@@ -11,7 +11,7 @@ const MyTask = () => {
     const { user } = useContext(AuthContext)
     const [noteData, setNoteData] = useState(null)
     const navigate = useNavigate()
-
+    // load notes
     const { data: notes = [], isLoading, refetch } = useQuery({
         queryKey: ['notes', user?.email],
         queryFn: async () => {
@@ -36,9 +36,7 @@ const MyTask = () => {
                 refetch()
             })
     }
-
-
-
+    // handle completed
     const handleCompleted = (id) => {
         fetch(`http://localhost:5000/notes/${id}`, {
             method: 'PUT',

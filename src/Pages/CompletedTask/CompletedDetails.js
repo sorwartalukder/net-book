@@ -1,9 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
+import CompleteTaskComment from './CompleteTaskComment';
 
 const CompletedDetails = () => {
     const n = useLoaderData()
     const navigate = useNavigate()
+    // handle not complete
     const handleNotComplete = id => {
         fetch(`http://localhost:5000/notes/${id}`, {
             method: 'PUT',
@@ -17,6 +20,37 @@ const CompletedDetails = () => {
                 navigate('/completed-task')
             })
     }
+    // load comment
+    const { data: comments = [], refetch } = useQuery({
+        queryKey: ['comments', n._id],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/comments/${n._id}`);
+            const data = res.json();
+            return data
+        }
+    })
+    // handle add comment
+    const handleAddComment = e => {
+        e.preventDefault()
+        const commentMessage = e.target.comment.value;
+        const comment = {
+            commentID: n._id,
+            commentMessage,
+        }
+        fetch('http://localhost:5000/comments', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(comment)
+        })
+            .then(res => res.json())
+            .then(data => {
+                e.target.reset()
+                refetch()
+            })
+    }
+
     return (
         <div className='min-h-screen mt-11 max-w-[800px] mx-auto'>
             <div className='bg-white rounded-lg  flex flex-col'>
@@ -31,6 +65,10 @@ const CompletedDetails = () => {
                 >
                     Not Complete
                 </button>
+                <CompleteTaskComment
+                    handleAddComment={handleAddComment}
+                    comments={comments}
+                />
             </div>
         </div>
     );
