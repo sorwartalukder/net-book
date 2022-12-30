@@ -1,14 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
+import Loader from '../../Components/Loader/Loader';
 import CompleteTaskComment from './CompleteTaskComment';
 
 const CompletedDetails = () => {
     const n = useLoaderData()
+    const navigation = useNavigation();
     const navigate = useNavigate()
     // handle not complete
     const handleNotComplete = id => {
-        fetch(`http://localhost:5000/notes/${id}`, {
+        fetch(`https://net-book-server.vercel.app/notes/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -21,10 +23,10 @@ const CompletedDetails = () => {
             })
     }
     // load comment
-    const { data: comments = [], refetch } = useQuery({
+    const { data: comments = [], isLoading, refetch } = useQuery({
         queryKey: ['comments', n._id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/comments/${n._id}`);
+            const res = await fetch(`https://net-book-server.vercel.app/comments/${n._id}`);
             const data = res.json();
             return data
         }
@@ -37,7 +39,7 @@ const CompletedDetails = () => {
             commentID: n._id,
             commentMessage,
         }
-        fetch('http://localhost:5000/comments', {
+        fetch('https://net-book-server.vercel.app/comments', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -49,6 +51,11 @@ const CompletedDetails = () => {
                 e.target.reset()
                 refetch()
             })
+    }
+
+    //data loading spinner
+    if (navigation.state === "loading") {
+        return <Loader />
     }
 
     return (
@@ -65,10 +72,15 @@ const CompletedDetails = () => {
                 >
                     Not Complete
                 </button>
-                <CompleteTaskComment
-                    handleAddComment={handleAddComment}
-                    comments={comments}
-                />
+                {
+                    isLoading ?
+                        <Loader />
+                        :
+                        <CompleteTaskComment
+                            handleAddComment={handleAddComment}
+                            comments={comments}
+                        />
+                }
             </div>
         </div>
     );

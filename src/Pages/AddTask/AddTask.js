@@ -50,7 +50,7 @@ const AddTask = () => {
     }
     // save to database
     const saveNote = note => {
-        fetch('http://localhost:5000/notes', {
+        fetch('https://net-book-server.vercel.app/notes', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -67,7 +67,7 @@ const AddTask = () => {
         <div className='min-h-screen py-12'>
             <form
                 onSubmit={handleSubmit(handleNote)}
-                className='w-96 bg-white p-11 rounded-lg mx-auto'
+                className='max-w-[384px] bg-white p-11 rounded-lg mx-auto'
             >
 
                 <div className='flex items-center -mt-3 mb-5 -ml-2'>

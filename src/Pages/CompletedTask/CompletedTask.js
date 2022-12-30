@@ -11,7 +11,7 @@ const CompletedTask = () => {
     const { data: notes = [], isLoading } = useQuery({
         queryKey: ['notes', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/completed-notes/${user?.email}`);
+            const res = await fetch(`https://net-book-server.vercel.app/completed-notes/${user?.email}`);
             const data = res.json();
             return data
         }

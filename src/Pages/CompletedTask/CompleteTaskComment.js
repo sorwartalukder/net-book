@@ -9,6 +9,7 @@ const CompleteTaskComment = ({ handleAddComment, comments }) => {
             <form
                 onSubmit={handleAddComment}
             >
+                {/* comment text */}
                 <textarea
                     name="comment"
                     className='p-3 rounded-md border-2 ml-4'

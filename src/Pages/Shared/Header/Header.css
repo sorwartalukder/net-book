@@ -1,8 +1,18 @@
-.net-nav {
+.net-nav-items {
     gap: 30px;
     font-weight: 500;
 }
 
-.net-nav>li:hover {
+.net-nav-items>a>li:hover {
     color: blue;
+}
+
+.mobile-nav:hover>.mobile-nav-items {
+    display: block;
+}
+
+.mobile-nav-items {
+    display: none;
+    position: absolute;
+    padding: 10px 0;
 }

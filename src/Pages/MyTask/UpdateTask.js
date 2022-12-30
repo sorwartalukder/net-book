@@ -8,7 +8,7 @@ const UpdateTask = () => {
     const handleUpdatedNote = (e) => {
         e.preventDefault()
         const updateNote = e.target.note.value;
-        fetch(`http://localhost:5000/note/${n._id}`, {
+        fetch(`https://net-book-server.vercel.app/note/${n._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

@@ -50,7 +50,7 @@ const Login = () => {
     // user save database function
     const saveUserDatabase = (name, email, image) => {
         const user = { name, email, image }
-        fetch('http://localhost:5000/users', {
+        fetch('https://net-book-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

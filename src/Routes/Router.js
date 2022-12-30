@@ -30,7 +30,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/completed-details/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/note/${params.id}`),
+                loader: ({ params }) => fetch(`https://net-book-server.vercel.app/note/${params.id}`),
                 element: <PrivateRoute><CompletedDetails /></PrivateRoute>
             },
             {
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/update-task/:id',
-        loader: ({ params }) => fetch(`http://localhost:5000/note/${params.id}`),
+        loader: ({ params }) => fetch(`https://net-book-server.vercel.app/note/${params.id}`),
         element: <PrivateRoute><UpdateTask /></PrivateRoute>
     },
 

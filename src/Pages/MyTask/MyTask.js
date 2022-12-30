@@ -15,7 +15,7 @@ const MyTask = () => {
     const { data: notes = [], isLoading, refetch } = useQuery({
         queryKey: ['notes', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/notes/${user?.email}`);
+            const res = await fetch(`https://net-book-server.vercel.app/notes/${user?.email}`);
             const data = res.json();
             return data
         }
@@ -26,7 +26,7 @@ const MyTask = () => {
     }
     // handle deleted note
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/notes/${id}`, {
+        fetch(`https://net-book-server.vercel.app/notes/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -38,7 +38,7 @@ const MyTask = () => {
     }
     // handle completed
     const handleCompleted = (id) => {
-        fetch(`http://localhost:5000/notes/${id}`, {
+        fetch(`https://net-book-server.vercel.app/notes/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
