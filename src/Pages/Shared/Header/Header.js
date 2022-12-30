@@ -27,9 +27,12 @@ const Header = () => {
 
 
         <NavLink style={({ isActive }) => (isActive ? activeClass : undefined)}
-            to="/completed-task
-                ">
+            to="/completed-task">
             <li>Complete Task</li>
+        </NavLink>
+        <NavLink style={({ isActive }) => (isActive ? activeClass : undefined)}
+            to="/developer">
+            <li>Developer</li>
         </NavLink>
 
     </React.Fragment>
